@@ -11,9 +11,6 @@ function startChat() {
 
 const username = localStorage.getItem("chikitsalayaUser");
 
-// 🔗 Replace this with your actual Replit backend URL
-const BACKEND_URL = "https://93a4e7e8-b82d-427b-a37d-708d5cb1645b-00-35gkct708vca1.pike.replit.dev";
-
 // Send message to backend
 async function sendMessage() {
   const input = document.getElementById("userInput");
@@ -24,28 +21,19 @@ async function sendMessage() {
   input.value = "";
   appendMessage("CHIKITSALAYA", "Typing...");
 
-  try {
-    const res = await fetch(`${BACKEND_URL}/ask`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message: msg, user: username })
-    });
+  const res = await fetch("/ask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: msg, user: username })
+  });
 
-    const data = await res.json();
-    document.querySelector("#chatBox .message:last-child").remove();
-    appendMessage("CHIKITSALAYA", data.reply, true);
-    speak(data.reply); // Text-to-speech
-
-  } catch (err) {
-    document.querySelector("#chatBox .message:last-child").remove();
-    appendMessage("CHIKITSALAYA", "Sorry, I couldn't connect to the server.");
-    console.error("Fetch error:", err);
-  }
+  const data = await res.json();
+  document.querySelector("#chatBox .message:last-child").remove();
+  appendMessage("CHIKITSALAYA", data.reply, true);
+  speak(data.reply); // Text-to-speech
 }
 
-// Display message in chat window
+// Display message
 function appendMessage(sender, text, isBot = false) {
   const div = document.createElement("div");
   div.className = "message";
@@ -61,22 +49,34 @@ function speak(text) {
   speechSynthesis.speak(utterance);
 }
 
-// Voice-to-Text (Speech Recognition)
+// 🎤 Voice-to-Text
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 recognition.interimResults = false;
 recognition.lang = 'en-IN';
 
 function startListening() {
+  console.log("🎤 Listening...");
+  const micBtn = document.querySelector('button[onclick="startListening()"]');
+  micBtn.innerText = "🎙️ Listening...";
   recognition.start();
+
   recognition.onresult = function (event) {
     const transcript = event.results[0][0].transcript;
     document.getElementById("userInput").value = transcript;
+    micBtn.innerText = "🎤"; // Reset icon
     sendMessage();
+  };
+
+  recognition.onerror = function (event) {
+    console.error("Speech recognition error:", event.error);
+    alert("🎤 Voice input error: " + event.error);
+    micBtn.innerText = "🎤";
   };
 }
 
-// Send message on Enter key
+
+// Send on Enter key
 document.getElementById("userInput").addEventListener("keydown", function (e) {
   if (e.key === "Enter") sendMessage();
 });
