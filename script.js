@@ -12,7 +12,7 @@ function startChat() {
 const username = localStorage.getItem("chikitsalayaUser");
 
 // 🔗 Replace this with your actual Replit backend URL
-const BACKEND_URL = "https://chikitsalaya-backend.<your-username>.repl.co";
+const BACKEND_URL = "https://93a4e7e8-b82d-427b-a37d-708d5cb1645b-00-35gkct708vca1.pike.replit.dev";
 
 // Send message to backend
 async function sendMessage() {
