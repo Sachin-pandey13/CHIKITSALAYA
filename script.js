@@ -11,6 +11,9 @@ function startChat() {
 
 const username = localStorage.getItem("chikitsalayaUser");
 
+// 🔗 Replace this with your actual Replit backend URL
+const BACKEND_URL = "https://chikitsalaya-backend.<your-username>.repl.co";
+
 // Send message to backend
 async function sendMessage() {
   const input = document.getElementById("userInput");
@@ -21,19 +24,28 @@ async function sendMessage() {
   input.value = "";
   appendMessage("CHIKITSALAYA", "Typing...");
 
-  const res = await fetch("/ask", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: msg, user: username })
-  });
+  try {
+    const res = await fetch(`${BACKEND_URL}/ask`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: msg, user: username })
+    });
 
-  const data = await res.json();
-  document.querySelector("#chatBox .message:last-child").remove();
-  appendMessage("CHIKITSALAYA", data.reply, true);
-  speak(data.reply); // Text-to-speech
+    const data = await res.json();
+    document.querySelector("#chatBox .message:last-child").remove();
+    appendMessage("CHIKITSALAYA", data.reply, true);
+    speak(data.reply); // Text-to-speech
+
+  } catch (err) {
+    document.querySelector("#chatBox .message:last-child").remove();
+    appendMessage("CHIKITSALAYA", "Sorry, I couldn't connect to the server.");
+    console.error("Fetch error:", err);
+  }
 }
 
-// Display message
+// Display message in chat window
 function appendMessage(sender, text, isBot = false) {
   const div = document.createElement("div");
   div.className = "message";
@@ -49,7 +61,7 @@ function speak(text) {
   speechSynthesis.speak(utterance);
 }
 
-// Voice-to-Text
+// Voice-to-Text (Speech Recognition)
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 recognition.interimResults = false;
@@ -64,7 +76,7 @@ function startListening() {
   };
 }
 
-// Send on Enter key
+// Send message on Enter key
 document.getElementById("userInput").addEventListener("keydown", function (e) {
   if (e.key === "Enter") sendMessage();
 });
