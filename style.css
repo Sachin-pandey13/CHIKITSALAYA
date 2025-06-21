@@ -2,185 +2,185 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 body, html {
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
-
 #bg-video {
   position: fixed;
   top: 0;
   left: 0;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
+  z-index: -1;
+}
+#formModal .rounded-lg {
+  width: 90vw;
+  max-width: 400px;
 }
 
-.login-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  text-align: center;
-  animation: fadeIn 2s;
-  color: white;
-}
-
-.login-screen .logo {
-  width: 120px;
-  margin-bottom: 1rem;
-}
-
-.login-screen input, .login-screen button {
-  padding: 12px;
-  margin: 10px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-.login-screen input {
-  width: 220px;
-}
-
-.login-screen button {
-  background-color: #007b8f;
-  color: white;
-  cursor: pointer;
-}
-
-.login-screen button:hover {
-  background-color: #005f6a;
-}
-
-.chat-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 20px;
-  color: white;
-}
 
 .hidden {
   display: none;
 }
 
-.chat-header {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
+.glass {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
-.chat-box {
-  flex-grow: 1;
+#chatBox {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 16px;
+  border-radius: 12px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  animation: glowPulse 3s ease-in-out infinite;
   overflow-y: auto;
-  background-color: rgba(0,0,0,0.5);
-  padding: 10px;
-  border-radius: 10px;
+  scroll-behavior: smooth;
 }
 
-.chat-box .message {
-  margin: 8px 0;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border-left: 3px solid cyan;
-  border-radius: 6px;
-  animation: fadeIn 0.5s;
-}
-
-.chat-input {
-  display: flex;
-  margin-top: 10px;
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 8px 0 0 8px;
-}
-
-.chat-input button {
-  padding: 12px;
-  background: #00a3c4;
-  color: white;
-  border: none;
-  border-radius: 0 8px 8px 0;
-  cursor: pointer;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-/* ===== Button & Input Base Styles ===== */
-button, input[type="text"] {
-  padding: 10px 18px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 10px;
-  transition: all 0.3s ease-in-out;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-/* ===== Mic, Send, Login Buttons ===== */
-button {
-  background: rgba(0, 123, 255, 0.15);
-  color: white;
-  border: 1px solid rgba(0, 123, 255, 0.4);
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
-  -webkit-backdrop-filter: blur(6px);
+.message-bubble {
+  max-width: 75%;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.25);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(6px);
-  cursor: pointer;
+  animation: glowPulse 3s ease-in-out infinite;
 }
 
-button:hover {
-  background: rgba(0, 123, 255, 0.3);
-  box-shadow: 0 0 18px rgba(0, 123, 255, 0.4);
-  transform: scale(1.05);
+.message-bubble.user {
+  align-self: flex-end;
+  border-left: 3px solid rgba(0, 255, 180, 0.6);
+  background: rgba(0, 200, 255, 0.07);
 }
 
-/* ===== Special Hover Glow ===== */
-button:focus, input:focus {
-  outline: none;
-  box-shadow: 0 0 12px rgba(0, 255, 200, 0.5);
+.message-bubble.bot {
+  align-self: flex-start;
+  border-left: 3px solid rgba(0, 140, 255, 0.6);
+  background: rgba(0, 0, 0, 0.2);
 }
 
-/* ===== Animated Bars (Inputs) ===== */
-input[type="text"] {
-  background-color: rgba(255, 255, 255, 0.07);
+.message-text {
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 1rem;
+  margin-bottom: 4px;
+  word-wrap: break-word;
+}
+
+.timestamp {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: right;
+}
+
+.quick-suggest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.quick-suggest button {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quick-suggest button:hover {
+  background: rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+input, select, textarea {
+  outline: none;
+  transition: all 0.3s ease;
 }
 
 input[type="text"]::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
 
-input[type="text"]:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* ===== Smooth Transitions ===== */
-button, input[type="text"] {
-  transition: all 0.3s ease;
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
 }
-/* Glowing "Start Consultation" button style */
-button.start-glow {
-  background: transparent;
-  color: #00f6ff;
-  border: 2px solid rgba(0, 246, 255, 0.6);
-  box-shadow: 0 0 10px rgba(0, 246, 255, 0.4);
+/* Theme Toggle */
+/* Light Mode Styles */
+.light-mode body {
+  background-color: #f9f9f9;
+  color: #111;
 }
 
-button.start-glow:hover {
-  background: rgba(0, 246, 255, 0.1);
-  box-shadow: 0 0 20px rgba(0, 246, 255, 0.6);
+.light-mode #chatBox,
+.light-mode .glass,
+.light-mode .message-bubble,
+.light-mode .chat-input input,
+.light-mode .chat-input button,
+.light-mode .message-text,
+.light-mode .timestamp,
+.light-mode .quick-suggest,
+.light-mode .quick-suggest button {
+  color: #000 !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(0, 0, 0, 0.2) !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+.light-mode input::placeholder,
+.light-mode textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.light-mode button {
+  background: rgba(0, 0, 0, 0.1) !important;
+  color: #000 !important;
+  border-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+.light-mode .message-bubble.user {
+  border-left-color: rgba(0, 150, 100, 0.5);
+}
+
+.light-mode .message-bubble.bot {
+  border-left-color: rgba(0, 100, 200, 0.5);
+}
+
+
+
+/* Animations */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes glowPulse {
+  0% { box-shadow: 0 0 10px rgba(0, 255, 255, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(0, 255, 255, 0.2); }
 }
