@@ -5,7 +5,12 @@ const OpenAI = require('openai');
 const path = require('path');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://chikitsalaya.netlify.app',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
+}));
+app.options('*', cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
