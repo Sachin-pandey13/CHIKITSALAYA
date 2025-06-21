@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const OpenAI = require('openai');
+const path = require('path');
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -64,7 +66,6 @@ app.post('/ask', async (req, res) => {
   }
 });
 
-const path = require('path');
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
