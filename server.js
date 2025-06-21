@@ -12,36 +12,20 @@ app.use(express.static('public'));
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 let chatLogs = {};
 
-// Optional symptom tip advice
 const symptomSuggestions = {
-  fever: "Drink fluids, rest, and check temperature every 6 hours.",
-  cough: "Warm water and honey helps. If dry cough persists, consult a doctor.",
-  headache: "Try lying in a dark room. Caffeine or paracetamol can help.",
-  cold: "Steam inhalation and warm fluids recommended.",
-  stomachache: "Try ginger or mint tea. If sharp pain, seek medical help.",
-  tiredness: "Hydrate, sleep well, and eat iron-rich food.",
+  fever: "Drink fluids...",
+  // etc
 };
 
 app.post('/ask', async (req, res) => {
   const { message, user, lang } = req.body;
-
-  // Store chat log for user
   if (!chatLogs[user]) chatLogs[user] = [];
   chatLogs[user].push({ from: 'user', text: message });
   if (chatLogs[user].length > 20) chatLogs[user].shift();
 
-  // Map lang code to name
-  const languageMap = {
-    'en-IN': 'English',
-    'hi-IN': 'Hindi',
-    'bn-IN': 'Bengali',
-    'ta-IN': 'Tamil',
-  };
+  const languageMap = { 'en-IN': 'English', 'hi-IN': 'Hindi', 'bn-IN': 'Bengali', 'ta-IN': 'Tamil' };
   const languageName = languageMap[lang] || 'English';
-
-  // System prompt and optional symptom advice
-  const systemPrompt = `You are CHIKITSALAYA, a compassionate AI healthcare assistant. Answer in ${languageName}. Be empathetic and medically helpful.`;
-
+  const systemPrompt = `You are CHIKITSALAYA, a compassionate AI...`;
   const symptomKey = Object.keys(symptomSuggestions).find(symptom =>
     message.toLowerCase().includes(symptom)
   );
@@ -66,8 +50,9 @@ app.post('/ask', async (req, res) => {
   }
 });
 
+// index.html path
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3000;
