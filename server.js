@@ -1,54 +1,68 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-app.use(cors());
 const OpenAI = require('openai');
 const path = require('path');
+
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+let chatLogs = {};
 
-let chatLogs = {}; // session-wise chat storage
-
-// Symptom keyword suggestions
+// Optional symptom tip advice
 const symptomSuggestions = {
-  fever: "Drink plenty of fluids and rest. Monitor your temperature regularly.",
-  cough: "Stay hydrated and avoid cold drinks. If persistent, consult a physician.",
-  headache: "Take rest in a quiet, dark room. Over-the-counter painkillers may help.",
-  cold: "Use a humidifier and stay warm. Try nasal saline spray if needed.",
+  fever: "Drink fluids, rest, and check temperature every 6 hours.",
+  cough: "Warm water and honey helps. If dry cough persists, consult a doctor.",
+  headache: "Try lying in a dark room. Caffeine or paracetamol can help.",
+  cold: "Steam inhalation and warm fluids recommended.",
+  stomachache: "Try ginger or mint tea. If sharp pain, seek medical help.",
+  tiredness: "Hydrate, sleep well, and eat iron-rich food.",
 };
 
 app.post('/ask', async (req, res) => {
-  const { message, user } = req.body;
+  const { message, user, lang } = req.body;
+
+  // Store chat log for user
   if (!chatLogs[user]) chatLogs[user] = [];
+  chatLogs[user].push({ from: 'user', text: message });
+  if (chatLogs[user].length > 20) chatLogs[user].shift();
+
+  // Map lang code to name
+  const languageMap = {
+    'en-IN': 'English',
+    'hi-IN': 'Hindi',
+    'bn-IN': 'Bengali',
+    'ta-IN': 'Tamil',
+  };
+  const languageName = languageMap[lang] || 'English';
+
+  // System prompt and optional symptom advice
+  const systemPrompt = `You are CHIKITSALAYA, a compassionate AI healthcare assistant. Answer in ${languageName}. Be empathetic and medically helpful.`;
+
+  const symptomKey = Object.keys(symptomSuggestions).find(symptom =>
+    message.toLowerCase().includes(symptom)
+  );
+  const advice = symptomKey ? `\n💡 Advice: ${symptomSuggestions[symptomKey]}` : '';
 
   try {
-    const symptomTip = Object.keys(symptomSuggestions).find(symptom =>
-      message.toLowerCase().includes(symptom)
-    );
-    const advice = symptomTip ? `\n💡 Advice: ${symptomSuggestions[symptomTip]}` : '';
-
     const chatCompletion = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
-        {
-          role: 'system',
-          content: 'You are a compassionate AI healthcare assistant named CHIKITSALAYA. Provide helpful, empathetic answers to health queries.'
-        },
+        { role: 'system', content: systemPrompt },
         { role: 'user', content: message }
       ]
     });
 
     const reply = chatCompletion.choices[0].message.content + advice;
-    chatLogs[user].push({ from: 'user', text: message });
     chatLogs[user].push({ from: 'bot', text: reply });
 
-    res.json({ reply, history: chatLogs[user] });
+    res.json({ reply });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ reply: 'Sorry, something went wrong.' });
+    console.error("❌ OpenAI Error:", err.message);
+    res.status(500).json({ reply: "❌ Server error occurred. Please try again later." });
   }
 });
 
