@@ -55,7 +55,8 @@ async function sendMessage() {
   const typingBubble = appendMessage("CHIKITSALAYA", "Typing...", true, true);
 
   try {
-    const res = await fetch("/ask", {
+const res = await fetch("https://ee920afd-d14a-434a-90aa-373359d1573f.e1-us-east-azure.choreoapps.dev>/ask", {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: msg, user: username, lang: selectedLang })
