@@ -2,18 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const OpenAI = require('openai');
-const path = require('path');
 
 const app = express();
-app.use(cors({
-  origin: 'https://chikitsalaya.netlify.app',
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type']
-}));
-app.options('*', cors());
+app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
-
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 let chatLogs = {};
@@ -56,11 +48,10 @@ app.post('/ask', async (req, res) => {
   }
 });
 
-// index.html path
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+app.get('/', (req, res) => {
+  res.send('✅ CHIKITSALAYA Backend is running.');
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`✅ Server running at http://localhost:${PORT}`));
 module.exports = app;
