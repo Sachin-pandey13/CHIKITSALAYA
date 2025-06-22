@@ -55,7 +55,7 @@ async function sendMessage() {
   const typingBubble = appendMessage("CHIKITSALAYA", "Typing...", true, true);
 
   try {
-const res = await fetch("https://pepper-desert-bit.glitch.me/ask", {
+const res = await fetch("https://b22b4642-63a3-40f9-b89a-f3845181bc4a.e1-us-east-azure.choreoapps.dev/ask", {
 
       method: "POST",
       headers: { "Content-Type": "application/json" },
