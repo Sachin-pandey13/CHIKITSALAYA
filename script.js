@@ -18,7 +18,6 @@ themeToggle.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
   localStorage.setItem("chikitsalayaTheme", document.body.classList.contains("light-mode") ? "light" : "dark");
 });
-// Load saved theme on startup
 window.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("chikitsalayaTheme") === "light") {
     document.body.classList.add("light-mode");
@@ -33,10 +32,10 @@ function startChat() {
 
   localStorage.setItem("chikitsalayaUser", name);
   username = name;
-// ✅ Stop speech synthesis on page refresh
-window.onbeforeunload = function () {
-  speechSynthesis.cancel();
-};
+
+  window.onbeforeunload = function () {
+    speechSynthesis.cancel();
+  };
 
   document.getElementById("loginScreen").classList.add("hidden");
   document.getElementById("chatContainer").classList.remove("hidden");
@@ -55,8 +54,7 @@ async function sendMessage() {
   const typingBubble = appendMessage("CHIKITSALAYA", "Typing...", true, true);
 
   try {
-const res = await fetch("https://b22b4642-63a3-40f9-b89a-f3845181bc4a.e1-us-east-azure.choreoapps.dev/ask", {
-
+    const res = await fetch("https://b22b4642-63a3-40f9-b89a-f3845181bc4a.e1-us-east-azure.choreoapps.dev/ask", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message: msg, user: username, lang: selectedLang })
@@ -94,17 +92,37 @@ function appendMessage(sender, text, isBot = false, isTyping = false) {
 
   return div;
 }
+
 function resetSession() {
   localStorage.removeItem("chikitsalayaUser");
   location.reload(); // Force refresh to show login screen again
 }
 
-// Text-to-speech
+// ✅ Cleaned-up Text-to-Speech with multilingual voice support
 function speak(text) {
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = selectedLang || "en-IN";
+  const cleanedText = text
+    .replace(/💡/g, '')
+    .replace(/[\:\*\#]/g, '')
+    .replace(/\n/g, '. ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const utterance = new SpeechSynthesisUtterance(cleanedText);
+  const voices = speechSynthesis.getVoices();
+  const matchedVoice = voices.find(v => v.lang === selectedLang);
+
+  if (matchedVoice) {
+    utterance.voice = matchedVoice;
+  } else {
+    console.warn("⚠️ No matching voice for:", selectedLang);
+  }
+
+  utterance.lang = selectedLang;
   speechSynthesis.speak(utterance);
 }
+
+// Load voices for speech synthesis reliably
+speechSynthesis.onvoiceschanged = () => {};
 
 // Voice-to-text
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
