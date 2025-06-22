@@ -10,27 +10,44 @@
 CHIKITSALAYA is a smart virtual healthcare chatbot built with OpenAI's GPT that helps users:
 
 ◦ 🩺 Describe symptoms and get health suggestions
+
 ◦ 🧠 Use voice or text for interaction
+
 ◦ 🌍 Switch between English 🇬🇧 and Hindi 🇮🇳
+
 ◦ 🌗 Toggle between Light and Dark modes
+
 ◦ 📱 Use seamlessly on any device (Mobile/Desktop)
+
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 🚀 Key Features
 
 ✓ 🎤 Voice Input
+
 ✓ 🔈 Text-to-Speech Response
+
 ✓ ⌨️ Typing Indicator
+
 ✓ 💾 Persistent Chat History
+
 ✓ ♻️ Session Reset Support
+
 ✓ 🌗 Theme Toggle (Dark/Light)
+
 ✓ 👤 User Avatar + 🤖 Bot Avatar
+
 ✓ 🗓️ Auto Date-Based Grouping
+
 ✓ 📋 Dynamic Symptom Form
+
 ✓ 💡 Smart Suggestion Dock (Auto-hide)
+
 ✓ 🌐 Bilingual Chat Flow
+
 ✓ 📱 Fully Responsive Design
+
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
