@@ -1,75 +1,100 @@
-🏥 CHIKITSALAYA
-Your AI-Powered Healthcare Companion 🤖💊
-Smart. Responsive. Multilingual. Human-first.
+🌿 𝗖𝗛𝗜𝗞𝗜𝗧𝗦𝗔𝗟𝗔𝗬𝗔 — 𝗔𝗜-𝗣𝗼𝘄𝗲𝗿𝗲𝗱 𝗛𝗲𝗮𝗹𝘁𝗵𝗰𝗮𝗿𝗲 𝗔𝘀𝘀𝗶𝘀𝘁𝗮𝗻𝘁 🤖💊
+Smart · Multilingual · Responsive · Human-first
 
-🌐 Live Demo: https://healsphere.netlify.app 🚀
+🔗 Live Demo → https://healsphere.netlify.app 🚀
 
-✨ What is CHIKITSALAYA? 💭
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-CHIKITSALAYA is an AI-driven virtual healthcare assistant that helps users:
+✨ What is CHIKITSALAYA?
 
-💬 Describe symptoms and get possible remedies
-🗣️ Use voice or text for interaction
-🌍 Choose English 🇬🇧 or Hindi 🇮🇳
-🌗 Switch between dark and light mode
-📱 Access on mobile or desktop with a modern UI
+CHIKITSALAYA is a smart virtual healthcare chatbot built with OpenAI's GPT that helps users:
 
-🚀 Features You’ll Love
+◦ 🩺 Describe symptoms and get health suggestions
+◦ 🧠 Use voice or text for interaction
+◦ 🌍 Switch between English 🇬🇧 and Hindi 🇮🇳
+◦ 🌗 Toggle between Light and Dark modes
+◦ 📱 Use seamlessly on any device (Mobile/Desktop)
 
-🎤 Voice Input and 🔊 Text-to-Speech
-⌨️ Real-time Typing Indicator
-💬 Persistent Chat History
-🔄 Session Reset Button
-🌘 Dark / ☀️ Light Mode Toggle
-👤 User & 🤖 Bot Avatars
-📅 Date-Based Message Grouping
-📋 Dynamic Symptom Form with dropdowns
-💡 Smart Auto-Hiding Suggestions
-📱 Fully Mobile Responsive
-🌐 Bilingual Support (Hindi + English)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🛠️ Tech Stack
+🚀 Key Features
 
-Frontend: HTML5, Tailwind CSS, JavaScript
-Backend: Node.js, Express
-AI Engine: OpenAI GPT API
-Voice: Web Speech API
-Deployment: Netlify (Frontend), Render / Railway (Backend)
+✓ 🎤 Voice Input
+✓ 🔈 Text-to-Speech Response
+✓ ⌨️ Typing Indicator
+✓ 💾 Persistent Chat History
+✓ ♻️ Session Reset Support
+✓ 🌗 Theme Toggle (Dark/Light)
+✓ 👤 User Avatar + 🤖 Bot Avatar
+✓ 🗓️ Auto Date-Based Grouping
+✓ 📋 Dynamic Symptom Form
+✓ 💡 Smart Suggestion Dock (Auto-hide)
+✓ 🌐 Bilingual Chat Flow
+✓ 📱 Fully Responsive Design
 
-🔧 How to Use Locally
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Download or clone the project folder
+🛠 Tech Stack
 
-Open the folder named CHIKITSALAYA
+Frontend
+› HTML5
+› Tailwind CSS
+› JavaScript
 
-Install dependencies using the Node Package Manager
+Backend
+› Node.js
+› Express.js
 
-Create a .env file and add your OpenAI API key like this:
+AI Engine
+› OpenAI GPT API
+
+Voice
+› Web Speech API
+
+Deployment
+› Netlify (Frontend)
+› Render / Railway (Backend)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 How to Use Locally
+
+Download or clone the CHIKITSALAYA project folder
+
+Open the folder on your system
+
+Install dependencies using Node.js
+
+Create a file named .env and write:
 OPENAI_API_KEY=your_openai_api_key_here
 
-Start the server by running it through Node.js
+Run the server using Node.js
 
-Open the index.html file in your browser to use the app
+Open index.html in your browser to start
 
-🤝 Contributing
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-We welcome your contributions!
-You can help by:
+🤝 Contributions Welcome
 
-🧠 Suggesting new features
-🎨 Enhancing the UI/UX
-🪲 Fixing bugs
-🌐 Adding more language support
+We're open to your ideas and improvements:
 
-Just fork the repository, make your changes, and submit a pull request.
+› Suggest new features 💡
+› Improve UI / UX ✨
+› Fix bugs 🐞
+› Add more language support 🌍
+
+Just fork the repo → make changes → open a pull request 🔁
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 📄 License
 
-MIT License © Sachin Pandey
+Licensed under MIT License
+© Sachin Pandey
 
-🌟 Try CHIKITSALAYA Live Now
-https://healsphere.netlify.app
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-❤️ Made with care for health & humanity
+🌐 Try It Now → https://healsphere.netlify.app
+
+🫶 Built with care for health & humanity
 #StayHealthy #CHIKITSALAYA #DigitalHealth
-
